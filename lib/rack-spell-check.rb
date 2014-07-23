@@ -9,7 +9,7 @@ module Rack::SpellCheck
   end
 
   def self.logger
-    @@logger
+    @@logger ? (defined?(Rails) ? Rails.logger : nil)
   end
 end
 

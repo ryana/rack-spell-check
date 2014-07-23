@@ -27,6 +27,8 @@ module Rack
               case response[2]
               when Rack::Response
                 spell_check_html response[2].body
+              when ActionDispatch::Response
+                spell_check_html response[2].body
               when String
                 spell_check_html response[2]
               when Array
@@ -60,7 +62,7 @@ module Rack
       end
       
       def spell_check body, reported_words=[] 
-        with_benchmark do
+        #with_benchmark do
           body.
             # Strip out URLs.
             gsub(%r{[a-zA-Z0-9\.:/]+\.(?:co|net|org)[a-zA-Z0-9\.:/?&%]+}, '').
@@ -73,7 +75,7 @@ module Rack
               reported_words << key
               check_word word
             end
-        end
+        #end
       end
 
       def with_benchmark
