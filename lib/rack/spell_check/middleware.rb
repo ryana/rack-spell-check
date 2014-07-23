@@ -11,13 +11,7 @@ module Rack
         @speller = FFI::Aspell::Speller.new('en_US') 
         #@speller.suggestion_mode = Aspell::NORMAL
         @misspellings = {}
-        @whitelist = %w{
-          Matt Beale Spinto Spinto's spinto
-          matt beale www
-          css js scss CSS SCSS SASS CoffeeScript coffeescript
-          li td GitHub pre YAML CNAME
-          yoursubdomain
-        }
+        @whitelist = Rack::SpellCheck.whitelist || [] 
       end
 
       def call env
@@ -54,6 +48,8 @@ module Rack
           else
             reported_words = []
             nodes.each do |node|
+              next if node.name == 'script'
+              next if node.name == 'head'
               next unless node.text.present?
               spell_check node.text, reported_words
             end 

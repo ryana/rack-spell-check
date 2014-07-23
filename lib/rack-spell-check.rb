@@ -11,6 +11,14 @@ module Rack::SpellCheck
   def self.logger
     @@logger ? (defined?(Rails) ? Rails.logger : nil)
   end
+
+  def self.whitelist
+    @@whitelist
+  end
+
+  def self.whitelist= _whitelist
+    @@whitelist = _whitelist
+  end
 end
 
 Rack::SpellCheck.logger = (
