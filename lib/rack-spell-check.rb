@@ -28,3 +28,5 @@ Rack::SpellCheck.logger = (
     Logger.new(STDOUT)
   end
 )
+
+Rack::SpellCheck.whitelist = []

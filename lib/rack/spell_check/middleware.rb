@@ -18,14 +18,14 @@ module Rack
         @app.call(env).tap do |response|
           begin
             if response[1]["Content-Type"] =~ /html/
-              case response[2]
-              when Rack::Response
+              case response[2].class.to_s
+              when "Rack::Response"
                 spell_check_html response[2].body
-              when ActionDispatch::Response
+              when "ActionDispatch::Response"
                 spell_check_html response[2].body
-              when String
+              when "String"
                 spell_check_html response[2]
-              when Array
+              when "Array"
                 spell_check_html response[2].join
               end
             end
