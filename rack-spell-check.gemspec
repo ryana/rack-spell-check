@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = %w[]
 
   s.add_dependency('rack')
-  s.add_dependency('raspell')
+  s.add_dependency('ffi-aspell')
   s.add_dependency('logger')
   s.add_dependency('nokogiri')
 

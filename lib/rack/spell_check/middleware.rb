@@ -1,4 +1,4 @@
-require 'raspell'
+require 'ffi/aspell'
 require 'nokogiri'
 
 module Rack
@@ -8,8 +8,8 @@ module Rack
 
       def initialize app
         @app = app
-        @speller = Aspell.new("en_US")
-        @speller.suggestion_mode = Aspell::NORMAL
+        @speller = FFI::Aspell::Speller.new('en_US') 
+        #@speller.suggestion_mode = Aspell::NORMAL
         @misspellings = {}
         @whitelist = %w{
           Matt Beale Spinto Spinto's spinto
@@ -87,10 +87,10 @@ module Rack
         if @misspellings.has_key?(key) && @misspellings[key][:suggestions]
           log_misspelling word, @misspellings[key][:suggestions]
         else
-          if @speller.check(word)
+          if @speller.correct?(word)
             @misspellings[key] = { checked: true }
           else
-            @misspellings[key] = { checked: true, suggestions: @speller.suggest(word) }
+            @misspellings[key] = { checked: true, suggestions: ["#{word} DAMNIT RYAN"] }
             check_word word
           end
         end

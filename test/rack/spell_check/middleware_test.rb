@@ -15,7 +15,7 @@ describe Rack::SpellCheck::Middleware do
   end
 
   it "should log a misspelling" do
-    Rack::SpellCheck::Middleware.any_instance.expects(:log_misspelling).with('Speling', ['Spelling', 'Spieling', 'Sapling', 'Spilling', 'Spoiling', 'Spooling', 'Spline', 'Spewing', 'Spellings', 'Pealing', 'Peeling', 'Sealing', 'Selling', 'Soling', 'Spleen', 'Sling', 'Speckling', 'Paling', 'Piling', 'Poling', 'Puling', 'Splint', "Spelling's"])
+    Rack::SpellCheck::Middleware.any_instance.expects(:log_misspelling).with('Speling', ['Speling DAMNIT RYAN'])
     @app.get '/'
   end
 
